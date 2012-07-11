@@ -12,7 +12,15 @@ framework:
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
-    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    templating:
+      engines: ['twig', 'php']
+      assets_version: v4.15.8
+      form:
+        resources:
+          # Lowest priority
+          - 'FrameworkBundle:Form' # having all these (or adding more) increases the page generation time (not efficient lookupTemplate() func)
+          - 'AdvancedFormCoreBundle:Form'
+          - 'AdvancedFormCoreBundle:Form1Col'
     default_locale:  %locale%
     trust_proxy_headers: false # Should Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
     session:         ~

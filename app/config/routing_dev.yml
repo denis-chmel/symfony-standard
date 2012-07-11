@@ -11,6 +11,11 @@ _demo:
     type:     annotation
     prefix:   /demo
 
+_AdvancedForm:
+    resource: "@AdvancedFormCoreBundle/Controller/TaxClassController.php"
+    type:     annotation
+    prefix:   /taxclasses
+
 _wdt:
     resource: "@WebProfilerBundle/Resources/config/routing/wdt.xml"
     prefix:   /_wdt

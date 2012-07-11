@@ -1,0 +1,2 @@
+parameters:
+    templating.helper.slots.class: AdvancedForm\CoreBundle\Helpers\SlotsHelper
