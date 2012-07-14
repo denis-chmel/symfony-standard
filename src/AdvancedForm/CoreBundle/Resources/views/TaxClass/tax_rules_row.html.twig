@@ -1,0 +1,193 @@
+{#
+ view       \Symfony\Component\Templating\PhpEngine
+ form       \Symfony\Component\Form\FormView
+#}
+
+{# rule \AdvancedForm\CoreBundle\Entity\TaxClassRule #}
+{% set rule = form.getVar('value') %}
+{% set ruleId = 'new' %}
+
+<tbody class="entry-block" id="{{ form.getVar('id') }}" rel="{{ rule->getId()|default('') }}">
+<tr class="entry-data" valign="top">
+	<td>
+		<div class="data-country"> {# Micro format adr (http://microformats.org/wiki/adr) applied #}
+			{% if rule %}
+				{{ rule.country }}
+			{% endif %}
+		</div>
+		<div class="data-region">
+			{% if rule %}
+				{{ rule.state }}
+			{% endif %}
+		</div>
+
+		<span class="data-zip-codes">
+			{{ form.zipCodes.getVar('value') }}
+		</span>
+	</td>
+	<td>
+		<span class="data-customer-type nowrap">
+			{% set value = form.customerType.getVar('value') %}
+			{% if value %}
+				{{ value }}
+			{% else %}
+				<span class="disabled">{{ "Any"|trans }}</span>
+			{% endif %}
+		</span>
+	</td>
+	<td>
+		<div class="data-title1">
+			{% for title1 in form.title1 %}
+				{# title1 \Symfony\Component\Form\FormView #}
+				{% set attr = title1.getVar('attr') %}
+				{% set value = title1.getVar('value') %}
+
+				<div class="b-l10n b-preview-holder locale" lang="{{ attr.lang }}">
+					<i class="b-flag {{ attr.lang }}"></i>
+					<span class="b-locale-preview">{{ value|default("No title"|trans) }}</span>
+				</div>
+			 {% endfor %}
+		</div>
+		<div class="data-title2">
+			{% for title2 in form.title2 %}
+				{# title2 \Symfony\Component\Form\FormView #}
+				{% set attr = title2.getVar('attr'); %}
+				{% set value = title2.getVar('value'); %}
+
+				<div class="b-l10n b-preview-holder locale" lang="{{ attr.lang }}">
+					<i class="b-flag {{ attr.lang}}"></i>
+					<span class="b-locale-preview">{{ value|default("No title"|trans) }}</span>
+				</div>
+			{% endfor %}
+		</div>
+	</td>
+	<td class="b-ar">
+		<div class="data-rate1">
+			{{ form.rate1.getVar('value') }}
+		</div>
+		<div class="data-rate2">
+			{{ form.rate2.getVar('value') }}
+		</div>
+	</td>
+	<td>
+		<span class="data-compound" {% if form.isCompound.getVar('value') != true %}style="display: none"{% endif %}>{{ "Compounded"|trans }}</span>
+	</td>
+</tr>
+<tr class="entry-form" valign="top">
+	<td>
+		<div class="b-fields">
+			<div class="error">{{ form_errors(form.country) }}</div>
+			<dl class="b-field b-field_vertical">
+				<dt>
+					<span>
+						{{ form_label(form.country) }}
+					</span>
+				</dt>
+				<dd>
+					{{ form_widget(form.country) }}
+				</dd>
+			</dl>
+
+			<div class="error">{{ form_errors(form.state) }}</div>
+			<dl class="b-field b-field_vertical">
+				<dt>
+					<span>
+						{{ form_label(form.state) }}
+					</span>
+				</dt>
+				<dd>
+					{{ form_widget(form.state) }}
+				</dd>
+			</dl>
+
+			<div class="error">{{ form_errors(form.zipCodes) }}</div>
+			<dl class="b-field b-field_vertical">
+				<dt>
+					<span>
+						{{ form_label(form.zipCodes) }}
+					</span>
+				</dt>
+				<dd>
+					{{ form_widget(form.zipCodes) }}
+				</dd>
+			</dl>
+		</div>
+	</td>
+	<td>
+		<div class="error">{{ form_errors(form.customerType) }}</div>
+		<dl class="b-field b-field_vertical">
+			<dt>
+				<span>
+					{{ form_label(form.customerType) }}
+				</span>
+			</dt>
+			<dd>
+				{{ form_widget(form.customerType) }}
+			</dd>
+		</dl>
+	</td>
+	<td>
+		<div class="b-fields">
+			<div class="error">{{ form_errors(form.title1) }}</div>
+			<dl class="b-field b-field_vertical">
+				<dt>
+					<span>
+						{{ form_label(form.title1) }}
+					</span>
+				</dt>
+				<dd>
+					{{ form_widget(form.title1) }}
+				</dd>
+			</dl>
+			<div class="error">{{ form_errors(form.title2) }}</div>
+			<dl class="b-field b-field_vertical">
+				<dt>
+					<span>
+						{{ form_label(form.title2) }}
+					</span>
+				</dt>
+				<dd>
+					{{ form_widget(form.title2) }}
+				</dd>
+			</dl>
+			<div>
+				<div class="error">{{ form_errors(form.isCompound) }}</div>
+				<div class="b-choice">
+					{{ form_widget(form.isCompound) }}
+					<span>
+						{{ form_label(form.isCompound) }} <span></span>
+					</span>
+				</div>
+			</div>
+
+		</div>
+	</td>
+	<td class="b-ar">
+		<div class="b-fields">
+			<div class="error">{{ form_errors(form.rate1) }}</div>
+			<dl class="b-field b-field_vertical">
+				<dt>
+					<span>
+						{{ form_label(form.rate1) }}
+					</span>
+				</dt>
+				<dd>
+					{{ form_widget(form.rate1) }}
+				</dd>
+			</dl>
+			<div class="error">{{ form_errors(form.rate2) }}</div>
+			<dl class="b-field b-field_vertical">
+				<dt>
+					<span>
+						{{ form_label(form.rate2) }}
+					</span>
+				</dt>
+				<dd>
+					{{ form_widget(form.rate2) }}
+				</dd>
+			</dl>
+		</div>
+	</td>
+</tr>
+</tbody>
+
