@@ -10,7 +10,7 @@
 <div class="error">
 	<?= $formHelper->errors($form) ?>
 </div>
-<table border="1" class="advanced wide" id="tax-rules" data-prototype="<?=$view->escape($formHelper->row($form->getVar('prototype'))) ?>">
+<table border="1" class="advanced wide" id="tax-rules" data-prototype="<?=$view->escape($formHelper->row($form->get('prototype'))) ?>">
 <thead>
 <tr class="titles">
 	<th class="first">

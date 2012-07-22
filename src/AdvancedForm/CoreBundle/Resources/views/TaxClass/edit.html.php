@@ -10,7 +10,7 @@
 $time = time();
 
 /** @var $taxClass \AdvancedForm\CoreBundle\Entity\TaxClass */
-$taxClass = $form->getVar('value');
+$taxClass = $form->get('value');
 
 /** @var $formHelper \Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper */
 $formHelper = $view['form'];
