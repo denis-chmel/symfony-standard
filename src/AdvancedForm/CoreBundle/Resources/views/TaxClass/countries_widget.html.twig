@@ -1,0 +1,7 @@
+{#
+    TODO this is a copy of widget of supportedCountries in CheckoutBundle/Shippings, I think they must reuse the widget
+    entity \AdvancedForm\CoreBundle\Entity\TaxClass
+#}
+{% for country in entity.countries %}
+<img src="/img/countries/{{ country.isoCode2|lower }}.png" width="16" height="11" title="{{ country.title }} alt="{{ country.title }}" />
+{% endfor %}

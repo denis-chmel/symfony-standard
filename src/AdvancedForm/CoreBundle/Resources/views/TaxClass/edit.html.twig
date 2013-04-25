@@ -1,0 +1,120 @@
+{#
+    form \Symfony\Component\Form\FormView
+    view \Symfony\Bundle\FrameworkBundle\Templating\PhpEngine
+#}
+{% extend 'AdvancedFormCoreBundle::layout.html.php' %}
+{% form_theme form 'AdvancedFormCoreBundle:TaxClass' 'AdvancedFormCoreBundle:Form' %}
+
+{% set time = date('U') %}
+
+{# taxClass \AdvancedForm\CoreBundle\Entity\TaxClass #}
+{% set taxClass = form.getVar('value') %}
+
+{% set pageTitle = block('pageTitle') %}
+{% if pageTitle %}
+	{% set title = pageTitle %}
+{% endif %}
+
+{% set saveUrl = '' %}
+{% if taxClass.id not is null and taxClass.id > 0 %}
+	{% set saveUrl = path('BETaxClassEdit', {'id': taxClass.id}) %}
+{% else %}
+	{% set saveUrl = path('BETaxClassNew') %}
+{% endif %}
+<form class="b-edit-form" action="{{ saveUrl }}" method="post" {{ form_enctype(form) }}>
+	<div class="b-admin-form">
+		<div class="b-module">
+			<div class="b-box b-box_rounded">
+				<div class="b-legend">{{ 'Internal Information'|trans }}</div>
+				<div class="b-box_inner b-reduce_middle">
+					<div class="error">
+						{{ form_errors(form) }}
+					</div>
+					{{ form_widget(form._token) }}
+
+					<div class="error">
+						{{ form_errors(form.title) }}
+					</div>
+					<dl class="b-defs-list b-defs_indent_middle clearfix">
+						<dt>
+							{{ form_label(form.title) }}
+						</dt>
+						<dd class="info">Title for you</dd>
+						<dd class="info-layout">
+							{{ form_widget(form.title) }}
+						</dd>
+					</dl>
+
+					<div class="error">
+						{{ form_errors(form.description) }}
+					</div>
+					<dl class="b-defs-list b-defs_indent_middle clearfix">
+						<dt>
+							{{ form_label(form.description) }}
+						</dt>
+						<dd class="info">Description for your colleagues</dd>
+						<dd class="info-layout">
+							{{ form_widget(form.description) }}
+						</dd>
+					</dl>
+
+					<dl class="b-defs-list b-defs_indent_middle">
+						<dd class="info">Preselect it for new products</dd>
+						<dd class="info-layout">
+							<div class="error">
+								{{ form_errors(form.defaultForProducts) }}
+							</div>
+							<div class="b-choice">
+								{{ form_widget(form.defaultForProducts) }}
+								{{ form_label(form.defaultForProducts) }}
+							</div>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="b-title">
+			<span class="b-h4">World Taxes</span>
+		</div>
+
+		<div class="b-msg">
+			<div class="b-msg-body b-note">
+				Tax rules are searched in the order they are listed here.
+				<br>
+				Only the first matching rule will be triggered.
+			</div>
+		</div>
+
+		{% block xmp_templates %}
+			<xmp style="display: none" id="">
+
+			</xmp>
+		{% endblock xmp_templates%}
+
+		{{ form_widget(form.rules) }}
+
+		<div class="b-control b-control-bottom">
+			<table class="b-control-list wide">
+				<tbody>
+				<tr>
+					<td class="b-control-list-item">
+						<button class="btn btn-action" bhv="save" type="submit">{{ 'Save'|trans }}</button>
+						<button class="btn" bhv="cancel">{{ 'Cancel'|trans }}</button>
+					</td>
+					<td class="b-control-list-item b-ar">
+						<span class="b-note">
+							{{ 'Current class is used for 10 products, 1 shipping method, gift wrapping.'|trans }}
+						</span>
+						<a href="{{ path('BETaxClassDelete', {'id': taxClass.id}) }}" class="btn btn-delete" bhv="delete">{{ 'Delete'|trans }}</a>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+</form>
+
+<?=$view['slots']->get('xmp_templates');?>

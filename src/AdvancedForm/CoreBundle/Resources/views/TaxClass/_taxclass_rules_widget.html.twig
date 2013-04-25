@@ -1,0 +1,34 @@
+{#
+    form \Symfony\Component\Form\FormView
+    child \Symfony\Component\Form\FormView
+#}
+
+<div class="error">
+	{{ form_errors(form) }}
+</div>
+<table border="1" class="advanced wide" id="tax-rules" data-prototype="{{ form_row(form.getVar('prototype'))|e }}">
+<thead>
+<tr class="titles">
+	<th class="first">
+		<span>Destination</span>
+	</th>
+	<th>
+		<span>Customer Type</span>
+	</th>
+	<th>
+		<span>Tax Title</span>
+	</th>
+	<th>
+		<span>Tax, %</span>
+	</th>
+</tr>
+</thead>
+{% for child in form %}
+	{{ form_row(child) }}
+{% endfor %}
+<tfoot>
+<tr>
+	<td colspan="5" class="first"></td>
+</tr>
+</tfoot>
+</table>
